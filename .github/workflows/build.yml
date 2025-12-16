@@ -40,5 +40,7 @@ jobs:
         env:
           # Если вы используете секреты или переменные окружения для Android SDK/NDK,
           # убедитесь, что они заданы в Settings -> Actions -> Variables/Secrets
-          # Пример: ANDROIDNDK, ANDROIDSDK, ANDROIDAPI и т.д.
+          # Пример: ANDROIDNDK, ANDROIDSDK, ANDROIDAPI
         run: |
+          # Увеличьте логирование, чтобы видеть подробности в случае ошибки
+          buildozer -v android debug || (echo "Buildozer failed — см. лог выше" && false)
