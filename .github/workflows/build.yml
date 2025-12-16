@@ -29,13 +29,15 @@ jobs:
       - name: Upgrade pip and install/upgrade buildozer & python-for-android & Cython
         run: |
           python -m pip install --upgrade pip setuptools wheel
-          # ставим в пользовательскую директорию, чтобы не требовать sudo
+          # Устанавливаем в пользовательскую папку, чтобы не использовать sudo для pip
           python -m pip install --user --upgrade buildozer python-for-android cython
 
-      - name: Ensure ~/.local/bin is in PATH and check buildozer
+      - name: Add ~/.local/bin to PATH for the rest of the job
         run: |
-          echo "Adding ~/.local/bin to PATH for this job"
-          echo "::add-path::$HOME/.local/bin" || true
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Verify tools
+        run: |
           export PATH="$HOME/.local/bin:$PATH"
           which python || true
           which pip || true
@@ -43,7 +45,10 @@ jobs:
           buildozer --version || true
 
       - name: Build APK (buildozer)
+        env:
+          ${{ secrets.ANDROIDNDK }}
+          ${{ secrets.ANDROIDSDK }}
+          ${{ secrets.ANDROIDAPI }}
         run: |
           export PATH="$HOME/.local/bin:$PATH"
-          # Запуск с подробным логированием
           buildozer -v android debug
