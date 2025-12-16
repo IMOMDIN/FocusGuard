@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout project
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -35,9 +35,13 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           pip install --upgrade cython buildozer python-for-android
 
-      - name: Build APK
+      - name: Build APK (force Buildozer SDK/NDK r25b)
         env:
           BUILDOZER_DISABLE_SDK_LICENSE_PROMPT: 1
+          ANDROID_HOME: ""
+          ANDROID_SDK_ROOT: ""
+          ANDROID_NDK_ROOT: ""
+          ANDROID_NDK_HOME: ""
         run: |
           buildozer -v android debug
 
