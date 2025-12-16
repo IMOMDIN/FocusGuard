@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout project
@@ -25,9 +25,9 @@ jobs:
             git zip unzip wget curl \
             openjdk-17-jdk \
             build-essential \
-            autoconf automake libtool pkg-config m4 gettext \
+            autoconf automake libtool libtool-bin libltdl-dev autoconf-archive pkg-config m4 gettext \
             libffi-dev libssl-dev \
-            liblzma-dev libbz2-dev zlib1g-dev
+            liblzma-dev libbz2-dev zlib1g-dev bison flex
 
       - name: Install Buildozer and python-for-android
         run: |
