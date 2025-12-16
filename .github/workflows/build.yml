@@ -42,5 +42,3 @@ jobs:
           # убедитесь, что они заданы в Settings -> Actions -> Variables/Secrets
           # Пример: ANDROIDNDK, ANDROIDSDK, ANDROIDAPI и т.д.
         run: |
-          # Увеличьте логирование, чтобы видеть подробности в случае ошибки
-          buildozer -v android debug || (echo "Buildozer failed — см. лог выше" && false)
